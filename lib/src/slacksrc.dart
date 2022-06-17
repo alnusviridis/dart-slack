@@ -1,31 +1,33 @@
 import 'dart:convert';
 
-String url;
-
 /// A message passed between your app and slack.
 class Message {
   /// For a simple message, your JSON payload must contain a [text] property. This is the text that will be posted to the channel.
-  String text;
+  String? text;
 
   /// By default, the message will be posted by the username "testing-bot" but you can override the name by setting [username]
-  String username;
+  String? username;
 
   /// This is the channel the message will be sent to. By default the channel will be #general. Channel name must start with #.
   /// Ignored if this is an "Incoming Webhook"
-  String channel = '#general';
+  String? channel = '#general';
 
   /// By default, the message will show an icon that looks like the webhook's icon. You can change this by setting [icon_url] or [icon_emoji]
-  String icon_url;
+  String? icon_url;
 
   /// By default, the message will show an icon that looks like the webhook's icon. You can change this by setting [icon_url] or [icon_emoji]
-  String icon_emoji;
+  String? icon_emoji;
 
   /// Any number of [Attachment]s can be added to the message
-  List<Attachment> attachments;
+  List<Attachment>? attachments;
 
   /// Creates a [Message] object which can be sent to a Slack channel
-  Message(this.text, {this.username, this.channel, this.icon_emoji,
-      this.icon_url, this.attachments});
+  Message(this.text,
+      {this.username,
+      this.channel,
+      this.icon_emoji,
+      this.icon_url,
+      this.attachments});
 
   /// Prints out the [Map] that this object represents
   String toString() {
@@ -43,7 +45,7 @@ class Message {
 
     if (attachments != null) {
       List attached_maps = [];
-      for (Attachment a in attachments) attached_maps.add(a._toMap());
+      for (Attachment a in attachments!) attached_maps.add(a._toMap());
 
       message['attachments'] = attached_maps;
     }
@@ -57,31 +59,39 @@ class Attachment {
   String fallback;
 
   /// Optional text that should appear above the formatted data
-  String pretext;
+  String? pretext;
 
   /// Optional text that should appear within the attachment
-  String text;
+  String? text;
 
   /// Optional title for the attachment
-  String title;
+  String? title;
 
   /// Optional link for the attachment's title
-  String title_link;
+  String? title_link;
 
   /// Optional image to display
-  String image_url;
+  String? image_url;
 
   /// Optional thumbnail to display
-  String thumb_url;
+  String? thumb_url;
 
   /// Can either be one of 'good', 'warning', 'danger', or any hex color code
-  String color; // 'good', 'warning', 'danger' or hex.
+  String? color; // 'good', 'warning', 'danger' or hex.
 
   /// Fields are displayed in a table on the message
-  List<Field> fields;
+  List<Field>? fields;
 
   /// Creates an [Attachment] object which can be added to a [Message] object
-  Attachment(this.fallback, {this.pretext, this.text, this.title, this.title_link, this.image_url, this.thumb_url, this.color, this.fields});
+  Attachment(this.fallback,
+      {this.pretext,
+      this.text,
+      this.title,
+      this.title_link,
+      this.image_url,
+      this.thumb_url,
+      this.color,
+      this.fields});
 
   /// Prints out the [Map] that this object represents
   String toString() => jsonEncode(_toMap());
@@ -99,7 +109,7 @@ class Attachment {
 
     if (fields != null) {
       List attach_fields = [];
-      for (Field a in fields) attach_fields.add(a._toMap());
+      for (Field a in fields!) attach_fields.add(a._toMap());
 
       attachment['fields'] = attach_fields;
     }
@@ -116,10 +126,10 @@ class Field {
   String value;
 
   /// Optional flag indicating whether the `value` is short enough to be displayed side-by-side with other values
-  bool short = false;
+  bool short;
 
   /// Creates a [Field] object which can be added to an [Attachment] object
-  Field(this.title, this.value, {this.short});
+  Field(this.title, this.value, {this.short = false});
 
   /// Prints out the [Map] that this object represents
   String toString() => jsonEncode(_toMap());
