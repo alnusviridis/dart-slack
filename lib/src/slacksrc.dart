@@ -22,12 +22,14 @@ class Message {
   List<Attachment>? attachments;
 
   /// Creates a [Message] object which can be sent to a Slack channel
-  Message(this.text,
-      {this.username,
-      this.channel,
-      this.icon_emoji,
-      this.icon_url,
-      this.attachments});
+  Message(
+    this.text, {
+    this.username,
+    this.channel,
+    this.icon_emoji,
+    this.icon_url,
+    this.attachments,
+  });
 
   /// Prints out the [Map] that this object represents
   String toString() {
