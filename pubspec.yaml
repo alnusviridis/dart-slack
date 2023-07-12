@@ -6,11 +6,11 @@ description: |-
 homepage: https://github.com/ChildrenOfUr/dart-slack
 
 environment:
-  sdk: '>=2.17.0 <3.0.0'
+  sdk: '>=2.17.0 <4.0.0'
 
 dependencies:
   http: ^1.1.0
 
 dev-dependencies:
-  build_runner: '>=0.8.10 <2.0.0'
-  build_web_compilers: '>=0.3.6 <2.0.0'
+  build_runner: '>=0.8.10 <3.0.0'
+  build_web_compilers: '>=0.3.6 <3.0.0'
